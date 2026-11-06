@@ -95,8 +95,11 @@ runs:
           else
             BAZEL_TARGET=//common:kernel_aarch64/Image
           fi
+          # --config=stamp is required for Kleaf to honor SOURCE_DATE_EPOCH /
+          # KBUILD_BUILD_TIMESTAMP instead of forcing epoch 0 (1970-01-01).
           tools/bazel build \
             --config=fast \
+            --config=stamp \
             "${PAGE_SIZE_FLAGS[@]}" \
             --disk_cache=/home/runner/.cache/bazel \
             "$BAZEL_TARGET"
